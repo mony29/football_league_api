@@ -2,6 +2,7 @@ package com.example.football_league.controller;
 
 import com.example.football_league.model.request.UserAppRequest;
 import com.example.football_league.model.response.BodyResponse;
+import com.example.football_league.service.EmailVerificationService;
 import com.example.football_league.service.serviceImp.UserAppServiceImp;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.mail.MessagingException;
@@ -14,10 +15,11 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/auth")
 @SecurityRequirement(name = "bearerAuth")
 public class AuthController {
     private final UserAppServiceImp userAppServiceImp;
+    private final EmailVerificationService emailVerificationService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserAppRequest userAppRequest) throws MessagingException{
@@ -29,10 +31,10 @@ public class AuthController {
         return BodyResponse.getBodyResponse(userAppServiceImp.getUserById(userId));
     }
 
-//    @GetMapping("/verify")
-//    public ResponseEntity<?> verifyEmail(@RequestParam("code") String code) {
-//        return BodyResponse.getBodyResponse(emailVerificationService.getEmailVerificationByCode(code));
-//    }
+    @GetMapping("/verify")
+    public ResponseEntity<?> verifyEmail(@RequestParam("code") String code) {
+        return BodyResponse.getBodyResponse(emailVerificationService.getEmailVerificationByCode(code));
+    }
 //
 //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {

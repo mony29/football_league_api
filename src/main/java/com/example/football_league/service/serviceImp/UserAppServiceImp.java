@@ -1,6 +1,6 @@
 package com.example.football_league.service.serviceImp;
 
-import com.example.football_league.exception.NotFoundExceptionHandler;
+import com.example.football_league.exception.*;
 import com.example.football_league.model.dto.UserAppDTO;
 import com.example.football_league.model.entity.UserApp;
 import com.example.football_league.model.mapper.UserAppMapper;
@@ -46,6 +46,11 @@ public class UserAppServiceImp implements UserAppService, UserDetailsService {
         System.out.println("Email should be null : " + email);
 
         // check email condition
+        if (userAppRequest.getEmail().equalsIgnoreCase(email)) {
+            throw new UserDuplicateExceptionHandler("User already registered");
+        } else {
+            validateUserAppRequest(userAppRequest);
+        }
 
         userAppRequest.setPassword(passwordEncoder.encode(userAppRequest.getPassword()));
         userApp = userAppRepository.insertUser(userAppRequest);
@@ -71,6 +76,20 @@ public class UserAppServiceImp implements UserAppService, UserDetailsService {
 //            throw new NotFoundExceptionHandler("User not found");
 //        }
         return userAppMapper.INSTANCE.toUserAppDto(userApp);
+    }
+
+    private void validateUserAppRequest(UserAppRequest userAppRequest) {
+        if (userAppRequest.getEmail().isEmpty()) {
+            throw new FieldEmptyExceptionHandler("Email field is empty");
+        } else if (userAppRequest.getEmail().isBlank()) {
+            throw new FieldBlankExceptionHandler("Email field is blank");
+        } else if (userAppRequest.getPassword().isEmpty()) {
+            throw new FieldEmptyExceptionHandler("Password field is empty");
+        } else if (userAppRequest.getPassword().isBlank()) {
+            throw new FieldBlankExceptionHandler("Password field is blank");
+        } else if (!userAppRequest.getEmail().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-]+)(\\.[a-zA-Z]{2,5}){1,2}$")) {
+            throw new NotValidValueExceptionHandler("Email not valid");
+        }
     }
 
 }

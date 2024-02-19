@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Mapper
 public interface UserAppRepository {
-    @Results( id = "userMapMapper",
+    @Results(id = "userMapMapper",
             value = {
                     @Result(column = "is_enabled", property = "isEnabled")
             })
@@ -28,11 +28,16 @@ public interface UserAppRepository {
             values(#{req.name}, #{req.password}, #{req.email})
             returning *
             """)
-    UserApp insertUser(@Param("req")UserAppRequest userAppRequest);
+    UserApp insertUser(@Param("req") UserAppRequest userAppRequest);
 
     @Select("""
                 select * from accounts where id = #{userId}
             """)
 //    @ResultMap("userMapMapper")
     UserApp getUserById(@Param("userId") Integer userId);
+
+    @Select("""
+            update accounts set is_enabled = true where id = #{userId}      
+            """)
+    void enableUser(Integer userId);
 }
