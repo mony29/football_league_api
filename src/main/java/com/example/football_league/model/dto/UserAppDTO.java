@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class UserAppDTO {
     private int id;
     private String name;
-//    private String password;
     private String email;
     private String profile;
     private Boolean isEnabled;

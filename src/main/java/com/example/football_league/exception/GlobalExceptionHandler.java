@@ -55,14 +55,23 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
-//    @ExceptionHandler(IsEnableExceptionHandler.class)
-//    ProblemDetail handleIsEnableExceptionHandler(IsEnableExceptionHandler e) {
-//        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
-//        problemDetail.setTitle("User is disabled");
-//        problemDetail.setProperty("timestamp", Instant.now());
-//        problemDetail.setType(URI.create("localhost:8080/errors/bad-request"));
-//        return problemDetail;
-//    }
+    @ExceptionHandler(IsEnableExceptionHandler.class)
+    ProblemDetail handleIsEnableExceptionHandler(IsEnableExceptionHandler e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        problemDetail.setTitle("User is disabled");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setType(URI.create("localhost:8080/errors/bad-request"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(PasswordNotMatchExceptionHandler.class)
+    ProblemDetail handlePasswordNotMatchExceptionHandler(PasswordNotMatchExceptionHandler e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        problemDetail.setTitle("Password not correct");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setType(URI.create("localhost:8080/errors/bad-request"));
+        return problemDetail;
+    }
 
 //    @ExceptionHandler(IsAccountNonExpiredExceptionHandler.class)
 //    ProblemDetail handleIsAccountNonExpiredExceptionHandler(IsAccountNonExpiredExceptionHandler e) {
@@ -77,15 +86,6 @@ public class GlobalExceptionHandler {
 //    ProblemDetail handleIsAccountNonLockedExceptionHandler(IsAccountNonLockedExceptionHandler e) {
 //        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
 //        problemDetail.setTitle("User account is locked");
-//        problemDetail.setProperty("timestamp", Instant.now());
-//        problemDetail.setType(URI.create("localhost:8080/errors/bad-request"));
-//        return problemDetail;
-//    }
-
-//    @ExceptionHandler(PasswordNotMatchExceptionHandler.class)
-//    ProblemDetail handlePasswordNotMatchExceptionHandler(PasswordNotMatchExceptionHandler e) {
-//        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
-//        problemDetail.setTitle("Password not correct");
 //        problemDetail.setProperty("timestamp", Instant.now());
 //        problemDetail.setType(URI.create("localhost:8080/errors/bad-request"));
 //        return problemDetail;

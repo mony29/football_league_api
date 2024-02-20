@@ -3,9 +3,6 @@ package com.example.football_league.repository;
 import com.example.football_league.model.entity.UserApp;
 import com.example.football_league.model.request.UserAppRequest;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.JdbcType;
-
-import java.util.UUID;
 
 @Mapper
 public interface UserAppRepository {
@@ -33,7 +30,7 @@ public interface UserAppRepository {
     @Select("""
                 select * from accounts where id = #{userId}
             """)
-//    @ResultMap("userMapMapper")
+    @ResultMap("userMapMapper")
     UserApp getUserById(@Param("userId") Integer userId);
 
     @Select("""

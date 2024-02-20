@@ -3,8 +3,6 @@ package com.example.football_league.repository;
 import com.example.football_league.model.entity.EmailVerification;
 import org.apache.ibatis.annotations.*;
 
-import java.util.UUID;
-
 @Mapper
 public interface EmailVerificationRepository {
     @Results(

@@ -5,7 +5,7 @@ create table accounts
     password   varchar(50),
     email      varchar(100),
     profile    varchar(50),
---                          create_at timestamp ,
+    -- create_at timestamp ,
     is_enabled boolean default false
 );
 
